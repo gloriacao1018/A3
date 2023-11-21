@@ -1,14 +1,27 @@
 <?php
-$dsn = 'mysql:host=localhost;dbname=IMMNEWSNETWORK;charset=utf8mb4';
-$dbusername = 'root';
-$dbpassword = '';
+// Fetch the articles
+$stmt = $pdo->prepare("SELECT * FROM articles ORDER BY created_at DESC");
+$stmt->execute();
+$articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$pdo = new PDO($dsn, $dbusername, $dbpassword);
+foreach ($articles as $article) {
+    $articleId = $article['id'];
+    $articleTitle = $article['title'];
 
-$articleId = $_POST['article_id'];
-$userId = $_SESSION['user_id']; 
+    // Check if the user has liked this article
+    $stmt = $pdo->prepare("SELECT * FROM likes WHERE user_id = ? AND article_id = ?");
+    $stmt->execute([$userId, $articleId]);
+    $like = $stmt->fetch();
 
-$stmt = $pdo->prepare("INSERT INTO likes (user_id, article_id) VALUES (?, ?)");
-$stmt->execute([$userId, $articleId]);
-
-header('Location: member-page.php');
+    if ($like) {
+        echo '<form action="unlike-article.php" method="post">
+            <input type="hidden" name="article_id" value="' . $articleId . '">
+            <input type="submit" value="Unlike">
+        </form>';
+    } else {
+        echo '<form action="like-article.php" method="post">
+            <input type="hidden" name="article_id" value="' . $articleId . '">
+            <input type="submit" value="Like">
+        </form>';
+    }
+}

@@ -4,13 +4,14 @@
 
 <h1>Welcome to IMMNEWSNETWORK!</h1>
 <section class="featured-article">
-        <h2>Featured Article</h2>
+        <h2>Featured Article </h2>
         <article>
-            <h4>Narrative in Linear Interactive Media</h4>
+            <h4>Narrative in Linear Interactive Media <?$articleTitle?></h4>
             <p>Author: Myk Eff</p>
             <p>"Linear narrative refers to forms of storytelling in which the events of the story are presented in a cause-and-effect sequence that the audience experiences in a predetermined order, as fixed by the medium. Interactive narrative, on the other hand, refers to forms of storytelling in which the audience has some degree of control over the order in which events are experienced, as they are able to make choices that affect the direction, and outcome, of the story."</p>
             <a href="https://www.udemy.com/course/linear-and-interactive-narrative/" target="_blank">Read more</a>
         </article>
+        
         
     </section>
 
