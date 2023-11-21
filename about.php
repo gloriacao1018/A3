@@ -20,4 +20,4 @@ if (!$about) {
 
 <h2>About</h2>
 <p><?php echo $about['content']; ?></p>
-<a href="edit-about.php">Edit</a>
+<a href="edit-about.php">Edit About</a>

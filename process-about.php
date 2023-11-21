@@ -1,8 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 $dsn = 'mysql:host=localhost;dbname=IMMNEWSNETWORK;charset=utf8mb4';
 $dbusername = 'root';
 $dbpassword = '';
@@ -17,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("UPDATE about SET content = :content WHERE id = 1");
     $stmt->execute(['content' => $_POST['about']]);
 
-    header('Location: edit-article.php');
+    header('Location: edit-about.php?updated=true');
     exit;
 } else {
     exit('Invalid request.');

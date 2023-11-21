@@ -21,7 +21,7 @@ if ($user && password_verify($password, $user['password'])) {
     if ($user['role'] == 'admin') {
         header('Location: edit-articles.php');
     } else {
-        header('Location: articles.php');
+        header('Location: member-page.php');
     }
 } else {
     echo 'Invalid username or password';

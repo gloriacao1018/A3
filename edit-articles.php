@@ -7,11 +7,15 @@ $pdo = new PDO($dsn, $dbusername, $dbpassword);
 
 $stmt = $pdo->query("SELECT * FROM articles ");
 $articles = $stmt->fetchAll();
+
+$stmt = $pdo->prepare("SELECT content FROM about WHERE id = 1");
+$stmt->execute();
+$about = $stmt->fetchColumn();
 ?>
 
 <h1>Welcome to IMMNEWSNETWORK!</h1>
 <h2>About</h2>
-<p id="about">IMMNEWSNETWORK is a news website that provides the latest news on the entertainment industry.</p>
+<p><?php echo $about; ?></p>
 <a href="edit-about.php">Edit About</a>
 
 <section class="">

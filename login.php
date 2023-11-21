@@ -1,6 +1,5 @@
 <?php
 ?>
-<!-- Login Form -->
 <form action="process-login.php" method="POST">
     <h1>Login</h1>
     Username: <input type="text" name="username">
