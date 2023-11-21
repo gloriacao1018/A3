@@ -2,11 +2,10 @@
 
 ?>
 
-<form action="process-register.php" method="POST">    
-    First Name: <input type="text" name="fName">
-    Last Name: <input type="text" name="lName">
+<form action="process-register.php" method="POST">
+<h1>Sign Up</h1>
     Email: <input type="text" name="email">
-    Phone Number: <input type="text" name="phone_num">
-    Message: <textarea name="message"></textarea>
-    <input type="submit" value="Submit">
+    Username: <input type="text" name="username">
+    Password: <input type="password" name="password">
+    <input type="submit" value="Sign Up">
 </form>

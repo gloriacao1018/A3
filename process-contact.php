@@ -26,6 +26,7 @@ $stmt->execute([$fName, $lName, $email, $phone_num, $message]);
 if($stmt->execute()){ 
 ?>
 <h1> Thank you for your message!</h1>
+<a href="member-page.php">Back to Article Page</a>
 <?php
 
 }else{  

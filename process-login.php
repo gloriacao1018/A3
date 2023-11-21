@@ -1,30 +1,29 @@
 <?php
-$host = 'localhost';
-$db   = 'test';
-$user = 'root';
-$pass = '';
-$charset = 'utf8mb4';
+session_start();
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$opt = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
-];
-$pdo = new PDO($dsn, $user, $pass, $opt);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $username = $_POST['username'];
-$password = $_POST['password'];
+$password = $_POST['password']; 
 
-$stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
+$dsn = 'mysql:host=localhost;dbname=IMMNEWSNETWORK;charset=utf8mb4';
+$dbusername = 'root';
+$dbpassword = '';
+
+$pdo = new PDO($dsn, $dbusername, $dbpassword);
+
+$stmt = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
 $stmt->execute([$username]);
 $user = $stmt->fetch();
 
 if ($user && password_verify($password, $user['password'])) {
+    $_SESSION['role'] = $user['role'];
     if ($user['role'] == 'admin') {
-        header('Location: admin.php');
+        header('Location: edit-articles.php');
     } else {
-        header('Location: member.php');
+        header('Location: articles.php');
     }
 } else {
     echo 'Invalid username or password';

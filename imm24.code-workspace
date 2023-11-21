@@ -2,12 +2,6 @@
     "folders": [
         {
             "path": "."
-        },
-        {
-            "path": "../../../../../../Users/gloriacao/Desktop/Web_Dev/A1-HTML"
         }
-    ],
-    "settings": {
-        "liveServer.settings.multiRootWorkspaceName": "A1-HTML"
-    }
+    ]
 }
