@@ -1,8 +1,29 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+$dsn = 'mysql:host=localhost;dbname=IMMNEWSNETWORK;charset=utf8mb4';
+$dbusername = 'root';
+$dbpassword = '';
+
+$pdo = new PDO($dsn, $dbusername, $dbpassword);
+
+$stmt = $pdo->prepare("SELECT * FROM articles");
+$stmt->execute();
+$articles = $stmt->fetchAll();
 
 $stmt = $pdo->prepare("SELECT content FROM about WHERE id = 1");
 $stmt->execute();
 $about = $stmt->fetchColumn();
+$stmt = $pdo->prepare("
+    SELECT articles.*, COUNT(likes.id) AS likes
+    FROM articles
+    LEFT JOIN likes ON articles.id = likes.article_id
+    GROUP BY articles.id
+");
+$stmt->execute();
+$articles = $stmt->fetchAll();
 
 ?>
 
@@ -10,13 +31,21 @@ $about = $stmt->fetchColumn();
 <h1>Welcome to IMMNEWSNETWORK!</h1>
 <h2>About</h2>
 <p><?php echo $about; ?></p>
-<form action="like-article.php" method="post">
-    <input type="hidden" name="article_id" value="' . $article['id'] . '">
-    <input type="submit" value="Like">
-    </form>
+
 <section class="">
     <?php foreach ($articles as $article): ?>
-        <article>
+        <article> 
+        <p>Likes: <?php echo $article['likes']; ?></p>
+        <form action="process-like.php" method="post">
+    <input type="hidden" name="article_id" value="<?php echo $article['id']; ?>">
+    <?php if (isset($article['liked']) && $article['liked'] > 0): ?>
+        <input type="hidden" name="action" value="unlike">
+        <input type="submit" value="Unlike">
+    <?php else: ?>
+        <input type="hidden" name="action" value="like">
+        <input type="submit" value="Like">
+    <?php endif; ?>
+</form>
             <?php if ($article['featured'] == 1): ?>
                 <h2>Featured Article</h2>
             <?php endif; ?>
@@ -24,10 +53,7 @@ $about = $stmt->fetchColumn();
             <p>Author: <?php echo $article['author']; ?></p>
             <p><?php echo $article['content']; ?></p>
             <a href="<?php echo $article['link']; ?>" target="_blank">Read more</a>
-            <a href="update-article.php?id=<?php echo $article['id']; ?>">Edit</a>
-            <a href="delete-article.php?id=<?php echo $article['id']; ?>">Delete</a>
-            <a href="set-featured-article.php?id=<?php echo $article['id']; ?>">Set as Featured</a>
-        </article>
+            </article>
     <?php endforeach; ?>
 </section>
 

@@ -19,3 +19,4 @@ $stmt->execute(['id' => $_GET['id']]);
 
 echo "Featured article set successfully.";
 ?>
+<a href="edit-articles.php">Go Back</a>

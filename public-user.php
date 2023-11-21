@@ -16,6 +16,16 @@ $articles = $stmt->fetchAll();
 $stmt = $pdo->prepare("SELECT content FROM about WHERE id = 1");
 $stmt->execute();
 $about = $stmt->fetchColumn();
+
+$stmt = $pdo->prepare("
+    SELECT articles.*, COUNT(likes.id) AS likes
+    FROM articles
+    LEFT JOIN likes ON articles.id = likes.article_id
+    GROUP BY articles.id
+");
+$stmt->execute();
+$articles = $stmt->fetchAll();
+
 ?>
 <h1>Welcome to IMMNEWSNETWORK!</h1>
 <div>
@@ -35,6 +45,7 @@ $about = $stmt->fetchColumn();
             <h4><?php echo $article['title']; ?></h4>
             <p>Author: <?php echo $article['author']; ?></p>
             <p><?php echo $article['content']; ?></p>
+            <p>Likes: <?php echo $article['likes']; ?></p>
             <a href="<?php echo $article['link']; ?>" target="_blank">Read more</a>
         </article>
     <?php endforeach; ?>
