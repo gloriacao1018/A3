@@ -13,7 +13,8 @@ if (!isset($_GET['id'])) {
     exit('No ID was provided.');
 }
 
-$stmt = $pdo->prepare("DELETE FROM articles WHERE id = :id");
+$id = $_GET['id']; 
+$stmt = $pdo->prepare('DELETE FROM articles WHERE id = :id');
 $stmt->execute(['id' => $_GET['id']]);
 
 echo "Article deleted successfully.";
