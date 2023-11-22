@@ -27,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $message = 'Article updated successfully.';
     
-    // Fetch the article again after it's updated
     $stmt = $pdo->prepare("SELECT * FROM articles WHERE id = :id");
     $stmt->execute(['id' => $_POST['id']]);
     $article = $stmt->fetch();

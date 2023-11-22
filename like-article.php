@@ -1,5 +1,4 @@
 <?php
-// Fetch the articles
 $stmt = $pdo->prepare("SELECT * FROM articles ORDER BY created_at DESC");
 $stmt->execute();
 $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -8,7 +7,6 @@ foreach ($articles as $article) {
     $articleId = $article['id'];
     $articleTitle = $article['title'];
 
-    // Check if the user has liked this article
     $stmt = $pdo->prepare("SELECT * FROM likes WHERE user_id = ? AND article_id = ?");
     $stmt->execute([$userId, $articleId]);
     $like = $stmt->fetch();
