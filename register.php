@@ -1,4 +1,5 @@
 <?php
+
 ?>
 
 <form action="process-register.php" method="POST">
